@@ -1,0 +1,44 @@
+{
+  "video_path": "diaz_silva.mp4",
+  "timestamp": "2025-08-02 18:13:00",
+  "statistics": {
+    "total_person_detections": 211,
+    "fighter_1_detections": 211,
+    "fighter_2_detections": 0,
+    "referee_detections": 0,
+    "octagon_detections": 0,
+    "total_frames_processed": 70,
+    "strikes_detected": 205,
+    "takedowns_detected": 57,
+    "control_time": 0,
+    "processing_time": 8.240102767944336,
+    "fighter_tracking": {
+      "fighter_1": [
+        315,
+        188
+      ],
+      "fighter_2": [
+        481,
+        267
+      ]
+    },
+    "action_breakdown": {
+      "fighter_1_strike": 38,
+      "fighter_1_punch": 25,
+      "fighter_1_kick": 19,
+      "fighter_2_strike": 43,
+      "fighter_2_punch": 41,
+      "fighter_2_kick": 39,
+      "fighter_1_takedown": 27,
+      "fighter_2_takedown": 30,
+      "clinch": 1
+    }
+  },
+  "analysis_type": "improved_mma_detection",
+  "frame_skip": 5,
+  "improvements": [
+    "better_fighter_tracking",
+    "improved_action_detection",
+    "accurate_counting"
+  ]
+}
