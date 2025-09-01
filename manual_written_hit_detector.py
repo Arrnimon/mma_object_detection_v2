@@ -177,43 +177,43 @@ class mmaProcessing:
                                     # draw a line between the two points (green for fighter1 hits)
                                     cv2.line(r.orig_img, (int(fighter1_x), int(fighter1_y)), (int(fighter2_x), int(fighter2_y)), (0, 255, 0), 2)
             
-            # Check hits from fighter2 to fighter1 (fighter2 striking fighter1)
-            for i in head:  # fighter1's head
-                for j in striking_tools:  # fighter2's striking tools
-                    # Check if indices are valid
-                    if (i < len(fighter1) and j < len(fighter2)):
-                        
-                        # Check confidence if available, otherwise assume valid keypoints
-                        fighter1_conf_valid = True
-                        fighter2_conf_valid = True
-                        
-                        if has_confidence and len(r.keypoints.conf) >= 2:
-                            if len(r.keypoints.conf[0]) > i:
-                                fighter1_conf_valid = r.keypoints.conf[0][i] > 0
-                            if len(r.keypoints.conf[1]) > j:
-                                fighter2_conf_valid = r.keypoints.conf[1][j] > 0
-                        
-                        if fighter1_conf_valid and fighter2_conf_valid:
-                            # Check if keypoints are valid (not NaN or zero)
-                            fighter1_x, fighter1_y = fighter1[i][0], fighter1[i][1]
-                            fighter2_x, fighter2_y = fighter2[j][0], fighter2[j][1]
+                # Check hits from fighter2 to fighter1 (fighter2 striking fighter1)
+                for i in head:  # fighter1's head
+                    for j in striking_tools:  # fighter2's striking tools
+                        # Check if indices are valid
+                        if (i < len(fighter1) and j < len(fighter2)):
                             
-                            if (not math.isnan(fighter1_x) and not math.isnan(fighter1_y) and 
-                                not math.isnan(fighter2_x) and not math.isnan(fighter2_y) and
-                                fighter1_x > 0 and fighter1_y > 0 and fighter2_x > 0 and fighter2_y > 0):
+                            # Check confidence if available, otherwise assume valid keypoints
+                            fighter1_conf_valid = True
+                            fighter2_conf_valid = True
+                            
+                            if has_confidence and len(r.keypoints.conf) >= 2:
+                                if len(r.keypoints.conf[0]) > i:
+                                    fighter1_conf_valid = r.keypoints.conf[0][i] > 0
+                                if len(r.keypoints.conf[1]) > j:
+                                    fighter2_conf_valid = r.keypoints.conf[1][j] > 0
+                            
+                            if fighter1_conf_valid and fighter2_conf_valid:
+                                # Check if keypoints are valid (not NaN or zero)
+                                fighter1_x, fighter1_y = fighter1[i][0], fighter1[i][1]
+                                fighter2_x, fighter2_y = fighter2[j][0], fighter2[j][1]
                                 
-                                distance = math.sqrt((fighter2_x - fighter1_x)**2 + (fighter2_y - fighter1_y)**2)
-                                if distance < 50:
-                                    print("Fighter 2 hit Fighter 1!")
-                                    fighter2_hits += 1
-                                    # draw a line between the two points (red for fighter2 hits)
-                                    cv2.line(r.orig_img, (int(fighter2_x), int(fighter2_y)), (int(fighter1_x), int(fighter1_y)), (0, 0, 255), 2)
-        
-        # Display hit counters on the image
-        cv2.putText(r.orig_img, f"Fighter 1 Hits: {fighter1_hits}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-        cv2.putText(r.orig_img, f"Fighter 2 Hits: {fighter2_hits}", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-        
-        return fighter1_hits, fighter2_hits
+                                if (not math.isnan(fighter1_x) and not math.isnan(fighter1_y) and 
+                                    not math.isnan(fighter2_x) and not math.isnan(fighter2_y) and
+                                    fighter1_x > 0 and fighter1_y > 0 and fighter2_x > 0 and fighter2_y > 0):
+                                    
+                                    distance = math.sqrt((fighter2_x - fighter1_x)**2 + (fighter2_y - fighter1_y)**2)
+                                    if distance < 50:
+                                        print("Fighter 2 hit Fighter 1!")
+                                        fighter2_hits += 1
+                                        # draw a line between the two points (red for fighter2 hits)
+                                        cv2.line(r.orig_img, (int(fighter2_x), int(fighter2_y)), (int(fighter1_x), int(fighter1_y)), (0, 0, 255), 2)
+            
+            # Display hit counters on the image
+            cv2.putText(r.orig_img, f"Fighter 1 Hits: {fighter1_hits}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            cv2.putText(r.orig_img, f"Fighter 2 Hits: {fighter2_hits}", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+            
+            return fighter1_hits, fighter2_hits
             
 """
     def processImageIndividually(self, image_path):
